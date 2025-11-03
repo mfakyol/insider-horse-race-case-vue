@@ -7,6 +7,7 @@ import svgLoader from 'vite-svg-loader'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/insider-horse-race-case-vue/', // GitHub Pages repository name
   plugins: [vue(), vueDevTools(), svgLoader()],
   resolve: {
     alias: {
