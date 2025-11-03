@@ -143,6 +143,12 @@ src/
 
 ## 🚀 Deployment
 
+### GitHub Pages
+
+This project is automatically deployed to GitHub Pages on every push to the main branch.
+
+**Live Demo:** [https://mfakyol.github.io/insider-horse-race-case-vue/](https://mfakyol.github.io/insider-horse-race-case-vue/)
+
 ### Build for Production
 
 ```bash
@@ -150,102 +156,6 @@ npm run build
 ```
 
 The built files will be in the `dist/` directory, ready for deployment to any static hosting service.
-
-### Deploy to GitHub Pages
-
-#### Option 1: GitHub Actions (Recommended)
-
-1. Create `.github/workflows/deploy.yml` in your repository:
-
-```yaml
-name: Deploy to GitHub Pages
-
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Build
-      run: npm run build
-      
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/main'
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
-```
-
-2. Configure Vite for GitHub Pages by updating `vite.config.ts`:
-
-```typescript
-export default defineConfig({
-  base: '/insider-horse-race-case-vue/', // Replace with your repo name
-  plugins: [vue(), vueDevTools(), svgLoader()],
-  // ... rest of config
-})
-```
-
-3. Enable GitHub Pages in repository settings:
-   - Go to Settings → Pages
-   - Select "GitHub Actions" as source
-
-#### Option 2: Manual Deployment
-
-```bash
-# Build the project
-npm run build
-
-# Navigate to dist folder
-cd dist
-
-# Initialize git repository
-git init
-git add -A
-git commit -m 'Deploy to GitHub Pages'
-
-# Push to gh-pages branch
-git push -f git@github.com:mfakyol/insider-horse-race-case-vue.git main:gh-pages
-```
-
-#### Option 3: Using gh-pages package
-
-```bash
-# Install gh-pages
-npm install --save-dev gh-pages
-
-# Add deploy script to package.json
-"scripts": {
-  "deploy": "npm run build && gh-pages -d dist"
-}
-
-# Deploy
-npm run deploy
-```
-
-### Other Hosting Options
-
-- **Netlify**: Drag and drop `dist` folder or connect GitHub repository
-- **Vercel**: Import GitHub repository with automatic deployments
-- **Firebase Hosting**: Use Firebase CLI to deploy
 
 ### Preview Production Build
 
